@@ -13,7 +13,7 @@ const BrandPage = () => {
             transition={{ duration: 0.8 }} // Hiệu ứng kéo dài 0.8 giây
         >
             {/* Đảm bảo ToastContainer luôn hiển thị */}
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer position="top-right" autoClose={2000} />
             
             <motion.div 
                 initial={{ y: -20, opacity: 0 }} 
@@ -27,7 +27,7 @@ const BrandPage = () => {
                 <motion.div 
                     initial={{ scale: 0.95, opacity: 0 }} 
                     animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}  
                 >
                     <BrandsTable />
                 </motion.div>

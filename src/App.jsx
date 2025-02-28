@@ -16,6 +16,7 @@ import { logout } from "./utils/authService";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import ToastProvider from "./components/ToastProvider";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -42,6 +43,7 @@ function App() {
   return (
     <div className="flex h-screen text-gray-100 overflow-hidden bg-gray-100">
      <ToastContainer />
+     <ToastProvider />
       {/* bg-gray-900  */}
       {!isAuthenticated ? (
         <LoginPage onLogin={handleLogin} />

@@ -57,7 +57,8 @@ const Sidebar = () => {
 
 						<Menu size={24} />
 					</motion.button>
-					<img src={logo} className="w-auto h-8" />
+					{/* <img src={logo} className="w-auto h-8" /> */}
+					<div className="text-2xl uppercase">Tira Shop</div>
 				</div>
 				
 				<nav className='mt-8 flex-grow'>
