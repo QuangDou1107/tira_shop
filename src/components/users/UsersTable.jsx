@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
+import ToastProvider, { showToast } from "../ToastProvider";
+
 
 const userData = [
 	{ id: 1, name: "John Doe", email: "john@example.com", role: "Customer", status: "Active" },
@@ -9,6 +11,9 @@ const userData = [
 	{ id: 4, name: "Alice Brown", email: "alice@example.com", role: "Customer", status: "Active" },
 	{ id: 5, name: "Charlie Wilson", email: "charlie@example.com", role: "Moderator", status: "Active" },
 ];
+const handleToast = () =>{
+	showToast("Test thoi???", "success");
+}
 
 const UsersTable = () => {
 	const [searchTerm, setSearchTerm] = useState("");
@@ -30,6 +35,7 @@ const UsersTable = () => {
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ delay: 0.2 }}
 		>
+		<ToastProvider/>
 			<div className='flex justify-between items-center mb-6'>
 				<h2 className='text-xl font-semibold text-gray-900'>Users</h2>
 				<div className='relative'>
@@ -58,6 +64,9 @@ const UsersTable = () => {
 								Role
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>
+								Role
+							</th>
+							<th className='px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>
 								Status
 							</th>
 							<th className='px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>
@@ -74,7 +83,7 @@ const UsersTable = () => {
 								<td className='px-6 py-4 whitespace-nowrap text-gray-700'>{user.role}</td>
 								<td className='px-6 py-4 whitespace-nowrap text-gray-700'>{user.status}</td>
 								<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-700'>
-									<button className='text-indigo-600 hover:text-indigo-500 mr-2'>Edit</button>
+									<button className='text-indigo-600 hover:text-indigo-500 mr-2 ' onClick={handleToast}>Edit</button>
 									<button className='text-red-600 hover:text-red-500'>Delete</button>
 								</td>
 							</motion.tr>
