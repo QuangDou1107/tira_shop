@@ -5,7 +5,6 @@ import { Link, useLocation } from "react-router-dom";
 import { MdOutlineRateReview } from "react-icons/md";
 import { MdOutlineBrandingWatermark } from "react-icons/md";
 import { MdOutlineMail } from "react-icons/md";
-import logo from "../assets/btec.jpg";
 import { BiCategory } from "react-icons/bi";
 
 const SIDEBAR_ITEMS = [
@@ -22,7 +21,7 @@ const SIDEBAR_ITEMS = [
 	{ name: "Brand Management", icon: MdOutlineBrandingWatermark, color: "#3B82F6", href: "/brands" },
 	{ name: "Category Management", icon: BiCategory, color: "#8B5CF6", href: "/categories" },
 	{ name: "Email Management", icon: MdOutlineMail, color: "#EC4899", href: "/emails" },
-	{ name: "Setting", icon: Settings, color: "#6EE7B7", href: "/settings" },
+	// { name: "Setting", icon: Settings, color: "#6EE7B7", href: "/settings" },
 ];
 
 const Sidebar = () => {
@@ -31,9 +30,8 @@ const Sidebar = () => {
 
 	return (
 		<motion.div
-			className={`relative z-10 transition-all duration-300 ease-in-out flex-shrink-0 ${
-				isSidebarOpen ? "w-64" : "w-20"
-			}`}
+			className={`relative z-10 transition-all duration-300 ease-in-out flex-shrink-0 ${isSidebarOpen ? "w-64" : "w-20"
+				}`}
 			animate={{ width: isSidebarOpen ? 256 : 80 }}
 		>
 			<div className='h-full bg-gray-800 text-white p-4 flex flex-col border-r border-gray-800'>
@@ -58,16 +56,25 @@ const Sidebar = () => {
 						<Menu size={24} />
 					</motion.button>
 					{/* <img src={logo} className="w-auto h-8" /> */}
-					<div className="text-2xl uppercase">Tira Shop</div>
+					<Link
+						to="/"
+						className="text-[30px] font-semibold italic cursor-pointer tracking-wide text-white hover:text-gray-300 transition duration-200"
+						style={{ fontFamily: "'Playfair Display', serif" }}
+					>
+						Tira <span className="text-red-400 font-normal">Shop</span>
+					</Link>
+
+
+
+
 				</div>
-				
+
 				<nav className='mt-8 flex-grow'>
 					{SIDEBAR_ITEMS.map((item) => (
 						<Link key={item.href} to={item.href}>
 							<motion.div
-								className={`flex items-center p-4 text-sm font-medium rounded-lg transition-colors mb-2 ${
-									location.pathname === item.href ? "bg-gray-700" : "hover:bg-gray-700"
-								}`}
+								className={`flex items-center p-4 text-sm font-medium rounded-lg transition-colors mb-2 ${location.pathname === item.href ? "bg-gray-700" : "hover:bg-gray-700"
+									}`}
 							>
 								<item.icon size={20} style={{ color: item.color, minWidth: "20px" }} />
 								<AnimatePresence>

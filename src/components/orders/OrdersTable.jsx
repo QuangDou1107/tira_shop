@@ -66,7 +66,7 @@ const OrdersTable = () => {
     };
 
     return (
-        <div className='m-5 p-6 bg-white text-black rounded-xl'>
+        <div className='my-5 p-6 bg-white text-black rounded-xl'>
         <ToastProvider/>
             <div className='flex justify-between items-center mb-6'>
                 <h2 className='text-xl font-semibold text-gray-900'>Order List</h2>

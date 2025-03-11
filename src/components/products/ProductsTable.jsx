@@ -34,21 +34,24 @@ const ProductsTable = () => {
         try {
             const response = await axios.get('http://localhost:8080/tirashop/product');
             let fetchedProducts = response.data.data.elementList || [];
-
+    
             if (searchTerm) {
                 fetchedProducts = fetchedProducts.filter(product =>
                     product.name.toLowerCase().includes(searchTerm.toLowerCase())
                 );
             }
-
-            // Gọi API để lấy ảnh cho từng sản phẩm
+    
             const productsWithImages = await Promise.all(
                 fetchedProducts.map(async (product) => {
                     try {
                         const imageRes = await axios.get(`http://localhost:8080/tirashop/product/${product.id}/images`);
+                        
+                        // console.log(`Image response for product ${product.id}:`, imageRes.data);
+                        
+                        const images = imageRes.data.data || []; // Kiểm tra API có trả về mảng data không
                         return {
                             ...product,
-                            image: imageRes.data.length > 0 ? `http://localhost:8080${imageRes.data[0].url}` : null,
+                            image: images.length > 0 ? `http://localhost:8080${encodeURI(images[0].url)}` : null,
                         };
                     } catch (error) {
                         console.error(`Error fetching images for product ${product.id}:`, error);
@@ -56,7 +59,7 @@ const ProductsTable = () => {
                     }
                 })
             );
-
+    
             setTotalPages(Math.ceil(productsWithImages.length / pageSize));
             const paginatedProducts = productsWithImages.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
             setProducts(paginatedProducts);
@@ -65,6 +68,8 @@ const ProductsTable = () => {
             toast.error("Failed to load product data.");
         }
     };
+    
+    
 
     const handleProductAdded = (newProduct) => {
         setProducts((prevProducts) => [...prevProducts, newProduct]);
@@ -120,7 +125,7 @@ const ProductsTable = () => {
     };
 
     return (
-        <div className='m-5 p-6 bg-white text-black rounded-xl'>
+        <div className='my-8 p-6 bg-white text-black rounded-xl'>
         <ToastProvider/>
             <div className='flex justify-between items-center mb-6'>
                 <h2 className='text-xl font-semibold text-gray-900'>Product List</h2>
@@ -150,6 +155,7 @@ const ProductsTable = () => {
                             <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Name</th>
                             <th className='px-0 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Description</th>
                             <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Price</th>
+                            <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Original Price</th>
                             <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Inventory</th>
                             <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Status</th>
                             <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Brand</th>
@@ -171,6 +177,7 @@ const ProductsTable = () => {
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>{product.name}</td>
                                 <td className='pr-3 py-4 text-sm text-gray-700 min-w-[200px]'>{product.description}</td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>${product.price}</td>
+                                <td className='py-4 text-sm text-gray-700 min-w-[200px]'>${product.originalPrice}</td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>{product.inventory}</td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>{product.status}</td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>{product.brandName}</td>

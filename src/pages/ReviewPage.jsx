@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const ReviewPage = () => {
 	return (
-		<div className='flex-1 overflow-auto relative z-10 bg-white'>
+		<div className='flex-1 overflow-auto relative z-10 bg-gray-100'>
 			<Header title={"Review Management"} />
 
 			<main className='ml-5 mt-5 max-w-7xl mx-auto py-6 px-4 lg:px-8'>

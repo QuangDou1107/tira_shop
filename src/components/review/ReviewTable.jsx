@@ -146,6 +146,11 @@ import { Trash2, Search } from 'lucide-react';
 import Pagination from '../common/Pagination';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ToastProvider, { showToast } from "../ToastProvider";
+
+const handleToast = () =>{
+    showToast("Delete successfully !!!", "success");
+}
 
 const ReviewTable = () => {
     const [reviews, setReviews] = useState([]);
@@ -244,6 +249,7 @@ const ReviewTable = () => {
 
     return (
         <div className='m-5 p-6 bg-white text-black rounded-xl'>
+        <ToastProvider/>
             <div className='flex justify-between items-center mb-6'>
                 <h2 className='text-xl font-semibold text-gray-900'>Review List</h2>
                 <div className='relative'>
@@ -283,7 +289,7 @@ const ReviewTable = () => {
                                     <img src={`http://localhost:8080${review.image}`} alt='Review' className='w-16 h-16 object-cover rounded-lg' />
                                 </td>
                                 <td className='py-3 text-sm text-gray-700 min-w-[150px]'>
-                                    <button className='text-red-600 hover:text-red-500' onClick={() => handleDeleteClick(review)}>
+                                    <button className='ml-4 text-red-600 hover:text-red-500' onClick={handleToast}>
                                         <Trash2 size={18} />
                                     </button>
                                 </td>
@@ -302,7 +308,7 @@ const ReviewTable = () => {
                         <p className='text-gray-700 mt-2'>Are you sure you want to delete this review?</p>
                         <div className='flex justify-center gap-4 mt-4'>
                             <button className='px-4 py-2 bg-gray-500 text-white rounded-lg' onClick={() => setIsDeleteModalOpen(false)}>Cancel</button>
-                            <button className='px-4 py-2 bg-red-500 text-white rounded-lg' onClick={handleDeleteReview}>Delete</button>
+                            <button className='px-4 py-2 bg-red-500 text-white rounded-lg' onClick={handleToast}>Delete</button>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import Header from "../components/common/Header";
 import ConnectedAccounts from "../components/settings/ConnectedAccounts";
 import DangerZone from "../components/settings/DangerZone";
+import Logout from "../components/settings/Logout";
 
 import Notifications from "../components/settings/Notifications";
 import Profile from "../components/settings/Profile";
@@ -15,7 +16,9 @@ const SettingsPage = () => {
 				<Notifications />
 				<Security />
 				<ConnectedAccounts />
-				<DangerZone/>
+				{/* <DangerZone/>	 */}
+				<Logout/>		
+
 			</main>
 		</div>
 	);
