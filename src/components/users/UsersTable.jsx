@@ -6,22 +6,55 @@ import Pagination from '../common/Pagination';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ToastProvider, { showToast } from "../ToastProvider";
-
+import AddUserModal from './AddUserModal';
+import EditUserModal from './EditUserModal';
+import SendEmailModal from './SendEmailModal'; 
 
 const UsersTable = () => {
 	const [users, setUsers] = useState([]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [currentPage, setCurrentPage] = useState(0);
 	const [totalPages, setTotalPages] = useState(1);
+	//send email
+	const [isSendEmailModalOpen, setIsSendEmailModalOpen] = useState(false);
+    const [selectedUserEmail, setSelectedUserEmail] = useState('');
 	const pageSize = 5;
 
 	useEffect(() => {
 		fetchUsers();
 	}, [currentPage, searchTerm]);
 
-	const handleToast = ()=>{
-		showToast("Add user!!!", "success");
-	}
+
+	//edit modal
+
+	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+	const [selectedUser, setSelectedUser] = useState(null);
+
+	const handleEditClick = (user) => {
+		setSelectedUser(user);
+		setIsEditModalOpen(true);
+	};
+
+	const handleUserUpdated = (updatedUser) => {
+		setUsers((prevUsers) =>
+			prevUsers.map((user) => (user.id === updatedUser.id ? updatedUser : user))
+		);
+		setIsEditModalOpen(false);
+		setSelectedUser(null);
+	};
+	
+	//send email
+	const handleOpenSendEmailModal = (email) => {
+        setSelectedUserEmail(email);
+        setIsSendEmailModalOpen(true);
+    };
+
+	//add modal
+	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+	const handleUserAdded = (newUser) => {
+		setUsers((prevUsers) => [...prevUsers, newUser]);
+		setIsAddModalOpen(false);
+	};
 
 	const fetchUsers = async () => {
 		try {
@@ -53,18 +86,6 @@ const UsersTable = () => {
 			toast.error("Failed to update status.");
 		}
 	};
-
-	const handleDeleteUser = async (userId) => {
-		try {
-			await axios.delete(`http://localhost:8080/tirashop/user/delete/${userId}`);
-			toast.success("User deleted successfully!");
-			fetchUsers();
-		} catch (err) {
-			console.error("Error deleting user:", err);
-			toast.error("Failed to delete user.");
-		}
-	};
-
 	const handleSendEmail = async (userId) => {
 		try {
 			await axios.post(`http://localhost:8080/tirashop/user/${userId}/send-email`);
@@ -80,20 +101,22 @@ const UsersTable = () => {
 			<ToastProvider />
 			<div className='flex justify-between items-center mb-6'>
 				<h2 className='text-xl font-semibold text-gray-900'>User List</h2>
-				<div className='relative'>
-					<input
-						type='text'
-						placeholder='Search by username...'
-						className='bg-gray-100 text-gray-900 placeholder-gray-500 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
-						onChange={(e) => setSearchTerm(e.target.value)}
-						value={searchTerm}
-					/>
-					<Search className='absolute left-3 top-2.5 text-gray-500' size={18} />
-					
+				<div className='flex items-center space-x-3'>
+					<div className='relative'>
+						<input
+							type='text'
+							placeholder='Search by username...'
+							className='bg-gray-100 text-gray-900 placeholder-gray-500 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
+							onChange={(e) => setSearchTerm(e.target.value)}
+							value={searchTerm}
+						/>
+						<Search className='absolute left-3 top-2.5 text-gray-500' size={18} />
+					</div>
+					<button onClick={() => setIsAddModalOpen(true)} className='bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2'>
+						<Plus size={18} /> Add New Product
+					</button>
 				</div>
-				<button onClick={handleToast} className='bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2'>
-                        <Plus size={18} /> Add New Product
-                    </button>
+
 			</div>
 
 			{/* Thêm thanh scroll ngang */}
@@ -106,7 +129,9 @@ const UsersTable = () => {
 							<th className='w-32 py-3 px-4 text-left text-xs font-medium text-gray-700 uppercase'>Avatar</th>
 							<th className='w-48 py-3 px-4 text-left text-xs font-medium text-gray-700 uppercase'>Password</th>
 							<th className='w-36 py-3 px-4 text-left text-xs font-medium text-gray-700 uppercase '>Birthday</th>
-							<th className='w-36 py-3 px-4 text-left text-xs font-medium text-gray-700 uppercase '>Phone</th>
+							<th className='w-36 py-3 px-4 text-left text-xs font-medium text-gray-700 uppercase '>First Name</th>
+							<th className='w-36 py-3 px-4 text-left text-xs font-medium text-gray-700 uppercase '>Last Name</th>
+							<th className='w-36 py-3 px-4 text-left text-xs font-medium text-gray-700 uppercase '>Email</th>
 							<th className='w-48 py-3 px-4 text-left text-xs font-medium text-gray-700 uppercase '>Address</th>
 							<th className='w-28 py-3 px-4 text-left text-xs font-medium text-gray-700 uppercase '>Status</th>
 							<th className='w-40 py-3 px-4 text-left text-xs font-medium text-gray-700 uppercase '>Actions</th>
@@ -122,7 +147,9 @@ const UsersTable = () => {
 								</td>
 								<td className='py-3 px-4 text-sm text-gray-700'>{user.password}</td>
 								<td className='py-3 px-4 text-sm text-gray-700'>{user.birthday}</td>
-								<td className='py-3 px-4 text-sm text-gray-700'>{user.phone}</td>
+								<td className='py-3 px-4 text-sm text-gray-700'>{user.firstname}</td>
+								<td className='py-3 px-4 text-sm text-gray-700'>{user.lastname}</td>
+								<td className='py-3 px-4 text-sm text-gray-700'>{user.email}</td>
 								<td className='py-3 px-4 text-sm text-gray-700'>{user.address}</td>
 								<td className='py-3 px-4 text-sm text-gray-700'>
 									<select
@@ -135,13 +162,12 @@ const UsersTable = () => {
 									</select>
 								</td>
 								<td className='pt-9 px-4 text-sm text-gray-700 flex space-x-4'>
-									<button className='text-blue-600 hover:text-blue-500' onClick={() => alert("Edit User")}>
+									<button className='text-blue-600 hover:text-blue-500' onClick={() => handleEditClick(user)}>
 										<Edit size={18} />
 									</button>
-									<button className='text-red-600 hover:text-red-500' onClick={() => handleDeleteUser(user.id)}>
-										<Trash size={18} />
-									</button>
-									<button className='text-green-600 hover:text-green-500' onClick={() => handleSendEmail(user.id)}>
+
+									
+									<button className='text-green-600 hover:text-green-500'  onClick={() => handleOpenSendEmailModal(user.email)}>
 										<Mail size={18} />
 									</button>
 								</td>
@@ -152,6 +178,18 @@ const UsersTable = () => {
 			</div>
 
 			<Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+			<AddUserModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} onUserAdded={handleUserAdded} />
+			<EditUserModal
+				isOpen={isEditModalOpen}
+				onClose={() => setIsEditModalOpen(false)}
+				user={selectedUser}
+				onUserUpdated={handleUserUpdated}
+			/>
+			 <SendEmailModal 
+                isOpen={isSendEmailModalOpen} 
+                onClose={() => setIsSendEmailModalOpen(false)}
+                recipientEmail={selectedUserEmail}
+            />
 			<ToastContainer />
 		</div>
 	);
