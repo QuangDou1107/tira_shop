@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { MdOutlineRateReview } from "react-icons/md";
 import { MdOutlineBrandingWatermark } from "react-icons/md";
-import { MdOutlineMail } from "react-icons/md";
 import { BiCategory } from "react-icons/bi";
 
 const SIDEBAR_ITEMS = [
@@ -20,8 +19,8 @@ const SIDEBAR_ITEMS = [
 	{ name: "Order Management", icon: ShoppingCart, color: "#F59E0B", href: "/orders" },
 	{ name: "Brand Management", icon: MdOutlineBrandingWatermark, color: "#3B82F6", href: "/brands" },
 	{ name: "Category Management", icon: BiCategory, color: "#8B5CF6", href: "/categories" },
-	{ name: "Email Management", icon: MdOutlineMail, color: "#EC4899", href: "/emails" },
-	// { name: "Setting", icon: Settings, color: "#6EE7B7", href: "/settings" },
+	// { name: "Voucher Management", icon: BiCategory, color: "#EC4899", href: "/vouchers" },
+	{ name: "Setting", icon: Settings, color: "#6EE7B7", href: "/settings" },
 ];
 
 const Sidebar = () => {
@@ -35,16 +34,6 @@ const Sidebar = () => {
 			animate={{ width: isSidebarOpen ? 256 : 80 }}
 		>
 			<div className='h-full bg-gray-800 text-white p-4 flex flex-col border-r border-gray-800'>
-				{/* <motion.button
-					whileHover={{ scale: 1.1 }}
-					whileTap={{ scale: 0.9 }}
-					onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-					className='p-2 rounded-full hover:bg-gray-700 transition-colors max-w-fit'
-				>
-				
-					<Menu size={24} />
-				</motion.button> */}
-
 				<div className="flex items-center space-x-[50px]">
 					<motion.button
 						whileHover={{ scale: 1.1 }}
@@ -55,7 +44,6 @@ const Sidebar = () => {
 
 						<Menu size={24} />
 					</motion.button>
-					{/* <img src={logo} className="w-auto h-8" /> */}
 					<Link
 						to="/"
 						className="text-[30px] font-semibold italic cursor-pointer tracking-wide text-white hover:text-gray-300 transition duration-200"
@@ -63,10 +51,6 @@ const Sidebar = () => {
 					>
 						Tira <span className="text-red-400 font-normal">Shop</span>
 					</Link>
-
-
-
-
 				</div>
 
 				<nav className='mt-8 flex-grow'>

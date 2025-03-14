@@ -86,16 +86,6 @@ const UsersTable = () => {
 			toast.error("Failed to update status.");
 		}
 	};
-	const handleSendEmail = async (userId) => {
-		try {
-			await axios.post(`http://localhost:8080/tirashop/user/${userId}/send-email`);
-			toast.success("Email sent successfully!");
-		} catch (err) {
-			console.error("Error sending email:", err);
-			toast.error("Failed to send email.");
-		}
-	};
-
 	return (
 		<div className='my-5 p-6 bg-white text-black rounded-xl shadow-lg'>
 			<ToastProvider />
@@ -118,7 +108,6 @@ const UsersTable = () => {
 				</div>
 
 			</div>
-
 			{/* Thêm thanh scroll ngang */}
 			<div className='overflow-x-auto w-full'>
 				<table className='min-w-max w-full divide-y divide-gray-300'>

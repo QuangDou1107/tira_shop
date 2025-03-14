@@ -1,69 +1,16 @@
-import React from 'react';
+// import React from 'react';
 
-const ReviewModal = ({ isOpen, onClose, product }) => {
-    if (!isOpen) return null; // Không hiển thị nếu modal không mở
-
-    return (
-        <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
-            <div className='bg-white p-6 rounded-lg shadow-lg w-96 text-center'>
-                <h2 className='text-lg font-semibold text-gray-900'>Review for {product?.name}</h2>
-                <div className='mt-4'>
-                    <p><strong>Description:</strong> {product?.description}</p>
-                    <p><strong>Price:</strong> ${product?.price}</p>
-                    {/* Form review hoặc các thông tin khác */}
-                </div>
-                <div className='flex justify-center gap-4 mt-4'>
-                    <button
-                        className='px-4 py-2 bg-gray-500 text-white rounded-lg'
-                        onClick={onClose}
-                    >
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
-export default ReviewModal;
-
-
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-
-// const ReviewModal = ({ isOpen, onClose, productId }) => {
-//     const [review, setReview] = useState(null);
-
-//     useEffect(() => {
-//         if (isOpen && productId) {
-//             // Gọi API để lấy review của sản phẩm cụ thể
-//             axios.get(`http://localhost:8080/tirashop/reviews/product/${productId}`)
-//                 .then(response => {
-//                     // Giả sử API trả về dữ liệu review
-//                     const fetchedReview = response.data.data?.elementList?.[0]; // Lấy review đầu tiên của sản phẩm
-//                     setReview(fetchedReview);
-//                 })
-//                 .catch(err => {
-//                     console.error("Error fetching review:", err);
-//                 });
-//         }
-//     }, [isOpen, productId]);
-
-//     if (!isOpen || !review) return null;
+// const ReviewModal = ({ isOpen, onClose, product }) => {
+//     if (!isOpen) return null; // Không hiển thị nếu modal không mở
 
 //     return (
 //         <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
 //             <div className='bg-white p-6 rounded-lg shadow-lg w-96 text-center'>
-//                 <h2 className='text-lg font-semibold text-gray-900'>Review for Product {productId}</h2>
+//                 <h2 className='text-lg font-semibold text-gray-900'>Review for {product?.name}</h2>
 //                 <div className='mt-4'>
-//                     <p><strong>Username:</strong> {review.username}</p>
-//                     <p><strong>Rating:</strong> {review.rating}</p>
-//                     <p><strong>Review:</strong> {review.reviewText}</p>
-//                     {review.image && (
-//                         <div>
-//                             <strong>Review Image:</strong>
-//                             <img src={`http://localhost:8080${review.image}`} alt="Review" className="w-24 h-24 object-cover mt-2 rounded-lg" />
-//                         </div>
-//                     )}
+//                     <p><strong>Description:</strong> {product?.description}</p>
+//                     <p><strong>Price:</strong> ${product?.price}</p>
+//                     {/* Form review hoặc các thông tin khác */}
 //                 </div>
 //                 <div className='flex justify-center gap-4 mt-4'>
 //                     <button
@@ -77,5 +24,101 @@ export default ReviewModal;
 //         </div>
 //     );
 // };
-
 // export default ReviewModal;
+
+
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { motion } from 'framer-motion';
+import { X } from 'lucide-react';
+import { toast } from 'react-toastify';
+
+const ReviewModal = ({ isOpen, onClose, product }) => {
+    const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (isOpen && product) {
+            fetchReviews();
+        }
+    }, [isOpen, product]);
+
+    const fetchReviews = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await axios.get(`http://localhost:8080/tirashop/reviews/product/${product.id}`);
+            
+            console.log("API Response:", response.data); // Kiểm tra API trả về gì
+    
+            // Lấy dữ liệu từ đúng key trong JSON
+            const fetchedReviews = response.data.data?.elementList || [];
+    
+            console.log("Fetched Reviews:", fetchedReviews); // Kiểm tra dữ liệu đã lấy đúng chưa
+    
+            setReviews(Array.isArray(fetchedReviews) ? fetchedReviews : []);
+        } catch (err) {
+            setError('Failed to load reviews.');
+            console.error("API Error:", err);
+            toast.error('Failed to load reviews.');
+            setReviews([]);
+        }
+        setLoading(false);
+    };
+    
+
+    if (!isOpen || !product) return null;
+
+    return (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <motion.div 
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white p-6 rounded-lg shadow-lg w-[500px]"
+            >
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-lg font-semibold">Reviews for {product.name}</h2>
+                    <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+                        <X size={20} />
+                    </button>
+                </div>
+
+                {loading ? (
+                    <p>Loading reviews...</p>
+                ) : error ? (
+                    <p className="text-red-500">{error}</p>
+                ) : reviews.length === 0 ? (
+                    <p>No reviews available for this product.</p>
+                ) : (
+                    <div className="max-h-80 overflow-y-auto">
+                        {reviews.map((review) => (
+                            <div key={review.id} className="border-b pb-3 mb-3">
+                                <p className="text-sm text-gray-700">
+                                    <strong>User:</strong> {review.username}
+                                </p>
+                                <p className="text-sm text-gray-700">
+                                    <strong>Rating:</strong> {review.rating}/5
+                                </p>
+                                <p className="text-sm text-gray-700">
+                                    <strong>Review:</strong> {review.reviewText}
+                                </p>
+                                <p className="text-sm text-gray-900">{review.review}</p>
+                                {review.image && (
+                                    <img 
+                                        src={`http://localhost:8080${review.image}`} 
+                                        alt="Review" 
+                                        className="w-16 h-16 object-cover mt-2 rounded" 
+                                    />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </motion.div>
+        </div>
+    );
+};
+
+export default ReviewModal;

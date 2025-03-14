@@ -25,14 +25,15 @@ const ProductsPage = () => {
 					<StatCard name='Top Selling' icon={TrendingUp} value={89} color='#10B981' />
 					<StatCard name='Low Stock' icon={AlertTriangle} value={23} color='#F59E0B' />
 					<StatCard name='Total Revenue' icon={DollarSign} value={"$543,210"} color='#EF4444' />
+
+				
 				</motion.div>
 
 				<ProductsTable />
-
 				{/* CHARTS */}
 				<div className='grid grid-col-1 lg:grid-cols-2 gap-8'>
-					<SalesTrendChart />
-					<CategoryDistributionChart />
+					{/* <SalesTrendChart /> */}
+					{/* <CategoryDistributionChart /> */}
 				</div>
 			</main>
 		</div>

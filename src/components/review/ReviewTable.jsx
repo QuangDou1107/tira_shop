@@ -200,29 +200,6 @@ const ReviewTable = () => {
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
-
-    // const handleDeleteClick = (review) => {
-    //     setReviewToDelete(review);
-    //     setIsDeleteModalOpen(true);
-    // };
-
-    // const handleDeleteReview = async () => {
-    //     if (!reviewToDelete) return;
-
-    //     try {
-    //         await axios.delete(`http://localhost:8080/tirashop/reviews/delete/${reviewToDelete.id}`);
-    //         setReviews(prevReviews => prevReviews.filter(review => review.id !== reviewToDelete.id));
-    //         toast.success("Review deleted successfully!");
-    //     } catch (err) {
-    //         console.error("Error deleting review:", err);
-    //         toast.error("Failed to delete review. Please try again.");
-    //     }
-
-    //     setIsDeleteModalOpen(false);
-    //     setReviewToDelete(null);
-    // };
-
-    //tesst 2
     
     const handleDeleteReview = async () => {
         if (!reviewToDelete) return;

@@ -174,6 +174,9 @@ const ProductsTable = () => {
 
 
     return (
+
+
+     
         <div className='my-8 p-6 bg-white text-black rounded-xl'>
             <ToastProvider />
             <div className='flex justify-between items-center mb-6'>
@@ -285,7 +288,6 @@ const ProductsTable = () => {
                     </div>
                 </div>
             )}
-
         </div>
     );
 };
