@@ -5,6 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 import { MdOutlineRateReview } from "react-icons/md";
 import { MdOutlineBrandingWatermark } from "react-icons/md";
 import { BiCategory } from "react-icons/bi";
+import logo from "../assets/2.png";
+import { FaTicketAlt } from "react-icons/fa";
 
 const SIDEBAR_ITEMS = [
 	{
@@ -19,8 +21,8 @@ const SIDEBAR_ITEMS = [
 	{ name: "Order Management", icon: ShoppingCart, color: "#F59E0B", href: "/orders" },
 	{ name: "Brand Management", icon: MdOutlineBrandingWatermark, color: "#3B82F6", href: "/brands" },
 	{ name: "Category Management", icon: BiCategory, color: "#8B5CF6", href: "/categories" },
-	// { name: "Voucher Management", icon: BiCategory, color: "#EC4899", href: "/vouchers" },
-	{ name: "Setting", icon: Settings, color: "#6EE7B7", href: "/settings" },
+	{ name: "Voucher Management", icon: FaTicketAlt, color: "#EC4899", href: "/vouchers" },
+	// { name: "Setting", icon: Settings, color: "#6EE7B7", href: "/settings" },
 ];
 
 const Sidebar = () => {
@@ -34,7 +36,7 @@ const Sidebar = () => {
 			animate={{ width: isSidebarOpen ? 256 : 80 }}
 		>
 			<div className='h-full bg-gray-800 text-white p-4 flex flex-col border-r border-gray-800'>
-				<div className="flex items-center space-x-[50px]">
+				<div className="flex items-center space-x-[40px]">
 					<motion.button
 						whileHover={{ scale: 1.1 }}
 						whileTap={{ scale: 0.9 }}
@@ -44,12 +46,8 @@ const Sidebar = () => {
 
 						<Menu size={24} />
 					</motion.button>
-					<Link
-						to="/"
-						className="text-[30px] font-semibold italic cursor-pointer tracking-wide text-white hover:text-gray-300 transition duration-200"
-						style={{ fontFamily: "'Playfair Display', serif" }}
-					>
-						Tira <span className="text-red-400 font-normal">Shop</span>
+					<Link to="/">
+						<img src={logo} className="h-12 w-auto max-w-[180px] rounded-lg transition-transform duration-300 hover:scale-110"></img>
 					</Link>
 				</div>
 

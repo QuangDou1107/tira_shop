@@ -10,10 +10,8 @@ import BrandPage from "./pages/BrandsPage";
 import SettingsPage from "./pages/SettingsPage";
 import LoginPage from "./pages/LoginPage";
 import CategoryPage from "./pages/CategoryPage";
-import EmailPage from "./pages/EmailPage";
+import VouchersPage from "./pages/VouchersPage";
 import ReviewPage from "./pages/ReviewPage";
-import { logout } from "./utils/authService";
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import ToastProvider from "./components/ToastProvider";
@@ -34,11 +32,6 @@ function App() {
     navigate("/"); // Chuyển đến dashboard sau khi đăng nhập thành công
   };
 
-  // const handleLogout = () => {
-  //   logout();
-  //   setIsAuthenticated(false);
-  //   navigate("/login");
-  // };
 
   return (
     <div className="flex h-screen text-gray-100 overflow-hidden bg-gray-100">
@@ -58,7 +51,7 @@ function App() {
             <Route path="/orders" element={<OrdersPage />} />
             <Route path="/brands" element={<BrandPage />} />
             <Route path="/categories" element={<CategoryPage />} />
-            <Route path="/emails" element={<EmailPage />} />
+            <Route path="/vouchers" element={<VouchersPage />} />
             <Route path="/settings" element={<SettingsPage />} />
           </Routes>
 

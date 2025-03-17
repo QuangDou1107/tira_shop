@@ -260,7 +260,7 @@ const ReviewTable = () => {
                                 <td className='pl-8 py-3 text-sm text-gray-700'>{review.id}</td>
                                 <td className='py-3 text-sm text-gray-700 min-w-[150px]'>{review.username}</td>
                                 <td className='py-3 text-sm text-gray-700 min-w-[150px]'>{review.productName}</td>
-                                <td className='py-3 text-sm text-gray-700 min-w-[150px]'>{review.rating}</td>
+                                <td className='py-3 pl-4 text-sm text-gray-700 min-w-[150px]'>{review.rating}⭐</td>
                                 <td className='py-3 text-sm text-gray-700 min-w-[150px]'>{review.reviewText}</td>
                                 <td className='py-3 text-sm text-gray-700 min-w-[150px]'>
                                     <img src={`http://localhost:8080${review.image}`} alt='Review' className='w-16 h-16 object-cover rounded-lg' />

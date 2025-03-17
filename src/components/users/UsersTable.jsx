@@ -140,15 +140,8 @@ const UsersTable = () => {
 								<td className='py-3 px-4 text-sm text-gray-700'>{user.lastname}</td>
 								<td className='py-3 px-4 text-sm text-gray-700'>{user.email}</td>
 								<td className='py-3 px-4 text-sm text-gray-700'>{user.address}</td>
-								<td className='py-3 px-4 text-sm text-gray-700'>
-									<select
-										value={user.status}
-										onChange={(e) => handleStatusChange(user.id, e.target.value)}
-										className='border rounded p-1 text-gray-700'
-									>
-										<option value="Active">Active</option>
-										<option value="Deactive">Deactive</option>
-									</select>
+								<td className='py-3 px-4 text-sm text-gray-700'>{user.status}
+									
 								</td>
 								<td className='pt-9 px-4 text-sm text-gray-700 flex space-x-4'>
 									<button className='text-blue-600 hover:text-blue-500' onClick={() => handleEditClick(user)}>

@@ -1,30 +1,4 @@
-// import React from 'react';
 
-// const ReviewModal = ({ isOpen, onClose, product }) => {
-//     if (!isOpen) return null; // Không hiển thị nếu modal không mở
-
-//     return (
-//         <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
-//             <div className='bg-white p-6 rounded-lg shadow-lg w-96 text-center'>
-//                 <h2 className='text-lg font-semibold text-gray-900'>Review for {product?.name}</h2>
-//                 <div className='mt-4'>
-//                     <p><strong>Description:</strong> {product?.description}</p>
-//                     <p><strong>Price:</strong> ${product?.price}</p>
-//                     {/* Form review hoặc các thông tin khác */}
-//                 </div>
-//                 <div className='flex justify-center gap-4 mt-4'>
-//                     <button
-//                         className='px-4 py-2 bg-gray-500 text-white rounded-lg'
-//                         onClick={onClose}
-//                     >
-//                         Close
-//                     </button>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-// export default ReviewModal;
 
 
 import React, { useEffect, useState } from 'react';
@@ -96,10 +70,10 @@ const ReviewModal = ({ isOpen, onClose, product }) => {
                         {reviews.map((review) => (
                             <div key={review.id} className="border-b pb-3 mb-3">
                                 <p className="text-sm text-gray-700">
-                                    <strong>User:</strong> {review.username}
+                                    <strong>User reviews : </strong> {review.username}
                                 </p>
                                 <p className="text-sm text-gray-700">
-                                    <strong>Rating:</strong> {review.rating}/5
+                                    <strong>Rating for product:</strong> {review.rating}⭐
                                 </p>
                                 <p className="text-sm text-gray-700">
                                     <strong>Review:</strong> {review.reviewText}
@@ -109,7 +83,7 @@ const ReviewModal = ({ isOpen, onClose, product }) => {
                                     <img 
                                         src={`http://localhost:8080${review.image}`} 
                                         alt="Review" 
-                                        className="w-16 h-16 object-cover mt-2 rounded" 
+                                        className="w-[150px] h-[150px] object-cover mt-2 rounded" 
                                     />
                                 )}
                             </div>
