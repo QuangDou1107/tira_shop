@@ -245,11 +245,11 @@ const ReviewTable = () => {
                 <table className='min-w-full divide-y divide-gray-300 table-fixed'>
                     <thead>
                         <tr>
-                            <th className='pl-8 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>ID</th>
+                            <th className='pl-8 py-3 pr-8 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>ID</th>
                             <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Username</th>
                             <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Product</th>
                             <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Rating</th>
-                            <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Review Text</th>
+                            <th className='py-3 pr-8 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Review Text</th>
                             <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Image</th>
                             <th className='py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider'>Actions</th>
                         </tr>
@@ -257,12 +257,12 @@ const ReviewTable = () => {
                     <tbody className='divide-y divide-gray-300'>
                         {paginatedReviews.map((review) => (
                             <motion.tr key={review.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
-                                <td className='pl-8 py-3 text-sm text-gray-700'>{review.id}</td>
+                                <td className='pl-8 py-3 pr-8 text-sm text-gray-700'>{review.id}</td>
                                 <td className='py-3 text-sm text-gray-700 min-w-[150px]'>{review.username}</td>
                                 <td className='py-3 text-sm text-gray-700 min-w-[150px]'>{review.productName}</td>
                                 <td className='py-3 pl-4 text-sm text-gray-700 min-w-[150px]'>{review.rating}⭐</td>
                                 <td className='py-3 text-sm text-gray-700 min-w-[150px]'>{review.reviewText}</td>
-                                <td className='py-3 text-sm text-gray-700 min-w-[150px]'>
+                                <td className='py-3 pr-8 text-sm text-gray-700 min-w-[150px]'>
                                     <img src={`http://localhost:8080${review.image}`} alt='Review' className='w-16 h-16 object-cover rounded-lg' />
                                 </td>
                                 <td className='py-3 text-sm text-gray-700 min-w-[150px]'>

@@ -6,7 +6,8 @@ import { MdOutlineRateReview } from "react-icons/md";
 import { MdOutlineBrandingWatermark } from "react-icons/md";
 import { BiCategory } from "react-icons/bi";
 import logo from "../assets/2.png";
-import { FaTicketAlt } from "react-icons/fa";
+import { FaTicketAlt, FaRegNewspaper  } from "react-icons/fa";
+
 
 const SIDEBAR_ITEMS = [
 	{
@@ -22,7 +23,7 @@ const SIDEBAR_ITEMS = [
 	{ name: "Brand Management", icon: MdOutlineBrandingWatermark, color: "#3B82F6", href: "/brands" },
 	{ name: "Category Management", icon: BiCategory, color: "#8B5CF6", href: "/categories" },
 	{ name: "Voucher Management", icon: FaTicketAlt, color: "#EC4899", href: "/vouchers" },
-	// { name: "Setting", icon: Settings, color: "#6EE7B7", href: "/settings" },
+	{ name: "Post Management", icon: FaRegNewspaper, color: "#6EE7B7", href: "/posts" },
 ];
 
 const Sidebar = () => {

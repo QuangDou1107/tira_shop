@@ -75,39 +75,34 @@ const EditUserModal = ({ isOpen, onClose, user, onUserUpdated }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-    
+        
         // 🔥 Chuyển đổi ngày sinh sang định dạng dd-MM-yyyy
         const formattedBirthday = formatDateToDDMMYYYY(userData.birthday);
     
-        // Tạo query params từ dữ liệu user
-        const queryParams = new URLSearchParams({
-            username: userData.username,
-            firstname: userData.firstname,
-            lastname: userData.lastname,
-            password: userData.password || "", // Nếu có mật khẩu
-            email: userData.email,
-            phone: userData.phone || "",
-            address: userData.address || "",
-            birthday: formattedBirthday,
-            role: userData.role && userData.role.length > 0 ? userData.role.join(",") : "", // Nếu role không có, gửi rỗng
-            status: userData.status, 
-        }).toString();
-
-        // Xây dựng URL với params
-        const url = `http://localhost:8080/tirashop/user/update/${userData.id}?${queryParams}`;
+        // Tạo FormData để gửi thông tin người dùng
+        const formData = new FormData();
+        formData.append("username", userData.username);
+        formData.append("firstname", userData.firstname);
+        formData.append("lastname", userData.lastname);
+        formData.append("password", userData.password || ""); // Nếu có mật khẩu
+        formData.append("email", userData.email);
+        formData.append("phone", userData.phone || "");
+        formData.append("address", userData.address || "");
+        formData.append("birthday", formattedBirthday);
+        formData.append("status", userData.status);
+        formData.append("role", userData.role && userData.role.length > 0 ? userData.role.join(",") : "");
     
-        // Chỉ gửi avatar trong body JSON nếu có
-        const bodyPayload = userData.avatar ? { avatar: userData.avatar } : {};
+        // Nếu có avatar, thêm vào FormData
+        if (userData.avatar) {
+            formData.append("avatar", userData.avatar);
+        }
     
-        console.log("Submitting user data to:", url);
-        console.log("Body:", bodyPayload);
+        const url = `http://localhost:8080/tirashop/user/update/${userData.id}`;
     
         try {
-            const response = await axios.put(url, bodyPayload, {
+            const response = await axios.put(url, formData, {
                 headers: {
-                    "Content-Type": "application/json",
-                  
-                    "accept": "*/*",
+                    "Content-Type": "multipart/form-data", // Đảm bảo Content-Type là multipart/form-data
                 },
             });
     
@@ -125,8 +120,8 @@ const EditUserModal = ({ isOpen, onClose, user, onUserUpdated }) => {
     
         setLoading(false);
     };
-
     
+
 
     return (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>

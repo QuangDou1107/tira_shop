@@ -19,38 +19,43 @@ const ProductsTable = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
+    const [expandedDescription, setExpandedDescription] = useState(null);
+
 
     // Pagination states
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 5;
-    const handleToast = () => {
-        showToast("Test thoi???", "success");
-    }
-
+ 
     useEffect(() => {
         fetchProducts();
     }, [currentPage, searchTerm]);
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/tirashop/product');
+            // Lấy tất cả sản phẩm từ API (có thể API hỗ trợ phân trang ở phía server)
+            const response = await axios.get('http://localhost:8080/tirashop/product', {
+                params: { limit: 1000 } // Hoặc số lượng sản phẩm bạn muốn lấy
+            });
+
+            console.log(response.data);  // Kiểm tra dữ liệu trả về từ API
             let fetchedProducts = response.data.data.elementList || [];
 
+            console.log(fetchedProducts.length); // Kiểm tra số lượng sản phẩm trả về từ API
+
+            // Nếu có từ khóa tìm kiếm, lọc sản phẩm theo tên
             if (searchTerm) {
                 fetchedProducts = fetchedProducts.filter(product =>
                     product.name.toLowerCase().includes(searchTerm.toLowerCase())
                 );
             }
 
+            // Lấy hình ảnh cho từng sản phẩm và cập nhật thông tin
             const productsWithImages = await Promise.all(
                 fetchedProducts.map(async (product) => {
                     try {
                         const imageRes = await axios.get(`http://localhost:8080/tirashop/product/${product.id}/images`);
-
-                        // console.log(`Image response for product ${product.id}:`, imageRes.data);
-
-                        const images = imageRes.data.data || []; // Kiểm tra API có trả về mảng data không
+                        const images = imageRes.data.data || [];
                         return {
                             ...product,
                             image: images.length > 0 ? `http://localhost:8080${encodeURI(images[0].url)}` : null,
@@ -62,16 +67,17 @@ const ProductsTable = () => {
                 })
             );
 
+            // Tính tổng số trang dựa trên số lượng sản phẩm đã tìm được
             setTotalPages(Math.ceil(productsWithImages.length / pageSize));
+
+            // Lấy các sản phẩm cho trang hiện tại
             const paginatedProducts = productsWithImages.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
             setProducts(paginatedProducts);
         } catch (err) {
             console.error('Error fetching products:', err);
-            toast.error("Failed to load product data.");
+            showToast("Failed to load product data.", "error");
         }
     };
-
-
 
     const handleProductAdded = (newProduct) => {
         setProducts((prevProducts) => [...prevProducts, newProduct]);
@@ -99,27 +105,6 @@ const ProductsTable = () => {
         setCurrentPage(0);
     };
 
-
-    const handleStatusChange = async (productId, newStatus) => {
-        try {
-            await axios.put(
-                `http://localhost:8080/tirashop/product/update/${productId}`,
-                { status: newStatus },
-                { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-            );
-
-            setProducts((prevProducts) =>
-                prevProducts.map((product) =>
-                    product.id === productId ? { ...product, status: newStatus } : product
-                )
-            );
-
-            showToast("Status updated successfully!", "success");
-        } catch (err) {
-            console.error("Error updating status:", err);
-            showToast("Failed to update status.", "error");
-        }
-    };
     const handleDeleteClick = (product) => {
         setProductToDelete(product); // Lưu lại sản phẩm cần xóa
         setIsDeleteModalOpen(true);  // Mở modal xác nhận xóa
@@ -170,13 +155,7 @@ const ProductsTable = () => {
         setIsReviewModalOpen(false);
         setSelectedProductForReview(null);
     };
-
-
-
     return (
-
-
-     
         <div className='my-8 p-6 bg-white text-black rounded-xl'>
             <ToastProvider />
             <div className='flex justify-between items-center mb-6'>
@@ -227,7 +206,23 @@ const ProductsTable = () => {
                                     )}
                                 </td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>{product.name}</td>
-                                <td className='pr-3 py-4 text-sm text-gray-700 min-w-[200px]'>{product.description}</td>
+                                <td className='pr-3 py-4 text-sm text-gray-700 min-w-[200px]'>
+                                    {expandedDescription === product.id ? (
+                                        <span>{product.description}</span>
+                                    ) : (
+                                        <span>
+                                            {product.description.length > 100 ? product.description.substring(0, 100) + '...' : product.description}
+                                        </span>
+                                    )}
+                                    {product.description.length > 100 && (
+                                        <button
+                                            className='text-blue-500 ml-2'
+                                            onClick={() => setExpandedDescription(expandedDescription === product.id ? null : product.id)}
+                                        >
+                                            {expandedDescription === product.id ? 'Show less' : 'Read more'}
+                                        </button>
+                                    )}
+                                </td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>${product.price}</td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>${product.originalPrice}</td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>{product.inventory}</td>

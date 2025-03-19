@@ -29,9 +29,6 @@ const Header = ({ title }) => {
           >
             <FaUserCircle />
           </button>
-
-
-         
         </div>
       </div>
     </header>

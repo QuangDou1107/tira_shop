@@ -149,11 +149,11 @@ const BrandsTable = () => {
                         {brands.map((brand) => (
                             <motion.tr key={brand.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
                                 <td className='pl-16 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider min-w-[200px]'>{brand.id}</td>
-                                <td className='pl-9 pr-14 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider min-w-[200px]'>
+                                <td className='pl-5 pr-14 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider min-w-[200px]'>
                                     <img src={`http://localhost:8080${brand.logo}`} alt={brand.name} className='w-[65px] h-[65px] rounded-full' />
                                 </td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>{brand.name}</td>
-                                <td className='px-0 py-4 text-sm text-gray-700 min-w-[200px]'>{brand.description}</td>
+                                <td className='px-0 py-4 pr-4 text-sm text-gray-700 min-w-[200px]'>{brand.description}</td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>
                                     <button className='text-indigo-600 hover:text-indigo-500 mr-2' onClick={() => handleEditClick(brand)}>
                                         <Edit size={18} />

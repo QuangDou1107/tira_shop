@@ -2,10 +2,9 @@ import Header from "../components/common/Header";
 import { motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import VouchersPage from "../components/vouchers/VouchersTable";
 
 
-const VoucherPage = () => {
+const PostPage = () => {
     return (
         <motion.div
             className='flex-1 overflow-auto relative z-10 bg-gray-100'
@@ -21,7 +20,7 @@ const VoucherPage = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                <Header title={"Voucher Management"} />
+                <Header title={"Post Management"} />
             </motion.div>
 
             <main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
@@ -30,10 +29,9 @@ const VoucherPage = () => {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                 >
-                    <VouchersPage />
                 </motion.div>
             </main>
         </motion.div>
     );
 };
-export default VoucherPage;
+export default PostPage;

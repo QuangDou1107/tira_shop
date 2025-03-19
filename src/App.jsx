@@ -4,7 +4,6 @@ import Sidebar from "./components/common/Sidebar";
 import OverviewPage from "./pages/OverviewPage";
 import ProductsPage from "./pages/ProductsPage";
 import UsersPage from "./pages/UsersPage";
-import SalesPage from "./pages/SalesPage";
 import OrdersPage from "./pages/OrdersPage";
 import BrandPage from "./pages/BrandsPage";
 import SettingsPage from "./pages/SettingsPage";
@@ -15,6 +14,7 @@ import ReviewPage from "./pages/ReviewPage";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import ToastProvider from "./components/ToastProvider";
+import PostsPage from "./pages/PostsPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -52,6 +52,7 @@ function App() {
             <Route path="/brands" element={<BrandPage />} />
             <Route path="/categories" element={<CategoryPage />} />
             <Route path="/vouchers" element={<VouchersPage />} />
+            <Route path="/posts" element={<PostsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
           </Routes>
 
