@@ -2,6 +2,7 @@ import Header from "../components/common/Header";
 import { motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PostsTable from "../components/posts/PostsTable";
 
 
 const PostPage = () => {
@@ -29,6 +30,7 @@ const PostPage = () => {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                 >
+                <PostsTable/>
                 </motion.div>
             </main>
         </motion.div>
