@@ -26,7 +26,7 @@ const ProductsTable = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 5;
- 
+
     useEffect(() => {
         fetchProducts();
     }, [currentPage, searchTerm]);
@@ -200,13 +200,13 @@ const ProductsTable = () => {
                                 <td className='pl-16 py-9 text-left text-xs font-medium text-gray-700 uppercase tracking-wider min-w-[200px]'>{product.id}</td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>
                                     {product.image ? (
-                                        <img src={product.image} alt={product.name} className="w-12 h-12 object-cover rounded-lg" />
+                                        <img src={product.image} alt={product.name} className="w-12 h-auto object-cover rounded-lg" />
                                     ) : (
                                         "No Image"
                                     )}
                                 </td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>{product.name}</td>
-                                <td className='pr-3 py-4 text-sm text-gray-700 min-w-[200px]'>
+                                <td className='pr-8 py-4 text-sm text-gray-700 min-w-[200px]'>
                                     {expandedDescription === product.id ? (
                                         <span>{product.description}</span>
                                     ) : (
@@ -223,8 +223,12 @@ const ProductsTable = () => {
                                         </button>
                                     )}
                                 </td>
-                                <td className='py-4 text-sm text-gray-700 min-w-[200px]'>${product.price}</td>
-                                <td className='py-4 text-sm text-gray-700 min-w-[200px]'>${product.originalPrice}</td>
+                                <td className='py-4 text-sm text-gray-700 min-w-[200px]'>
+                                    ${product.price.toLocaleString()}
+                                </td>
+                                <td className='py-4 text-sm text-gray-700 min-w-[200px]'>
+                                    ${product.originalPrice.toLocaleString()}
+                                </td>
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>{product.inventory}</td>
 
                                 <td className='py-4 text-sm text-gray-700 min-w-[200px]'>{product.status}</td>
