@@ -19,7 +19,7 @@ const SIDEBAR_ITEMS = [
 	{ name: "Product Management", icon: ShoppingBag, color: "#8B5CF6", href: "/products" },
 	{ name: "User Management", icon: Users, color: "#EC4899", href: "/users" },
 	{ name: "Review Management", icon: MdOutlineRateReview, color: "#10B981", href: "/reviews" },
-	{ name: "Order Management", icon: ShoppingCart, color: "#F59E0B", href: "/orders" },
+	// { name: "Order Management", icon: ShoppingCart, color: "#F59E0B", href: "/orders" },
 	{ name: "Brand Management", icon: MdOutlineBrandingWatermark, color: "#3B82F6", href: "/brands" },
 	{ name: "Category Management", icon: BiCategory, color: "#8B5CF6", href: "/categories" },
 	{ name: "Voucher Management", icon: FaTicketAlt, color: "#EC4899", href: "/vouchers" },

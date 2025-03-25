@@ -144,9 +144,9 @@ const UsersTable = () => {
 									
 								</td>
 								<td className='pt-9 px-4 text-sm text-gray-700 flex space-x-4'>
-									<button className='text-blue-600 hover:text-blue-500' onClick={() => handleEditClick(user)}>
+									{/* <button className='text-blue-600 hover:text-blue-500' onClick={() => handleEditClick(user)}>
 										<Edit size={18} />
-									</button>
+									</button> */}
 
 									
 									<button className='text-green-600 hover:text-green-500'  onClick={() => handleOpenSendEmailModal(user.email)}>

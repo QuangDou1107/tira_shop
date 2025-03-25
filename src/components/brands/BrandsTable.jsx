@@ -5,7 +5,7 @@ import { Edit, Trash2, Search, Plus } from 'lucide-react';
 import AddBrandModal from './AddBrandModal';
 import EditBrandModal from './EditBrandModal';
 import Pagination from '../common/Pagination';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const BrandsTable = () => {

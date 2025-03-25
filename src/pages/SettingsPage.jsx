@@ -1,11 +1,11 @@
 import Header from "../components/common/Header";
 import ConnectedAccounts from "../components/settings/ConnectedAccounts";
-import DangerZone from "../components/settings/DangerZone";
 import Logout from "../components/settings/Logout";
-
 import Notifications from "../components/settings/Notifications";
 import Profile from "../components/settings/Profile";
 import Security from "../components/settings/Security";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SettingsPage = () => {
 	return (
@@ -16,9 +16,9 @@ const SettingsPage = () => {
 				<Notifications />
 				<Security />
 				<ConnectedAccounts />
-				{/* <DangerZone/>	 */}
 				<Logout/>		
-
+				<ToastContainer position="top-right" autoClose={2000} />
+		
 			</main>
 		</div>
 	);
